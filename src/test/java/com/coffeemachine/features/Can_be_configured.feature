@@ -1,9 +1,11 @@
+@sprint-2
 Feature: Can be configured
-    As this is a high quality product
-    It is possible to configure it
-    In order to get the best possible coffees
+    "**In order to** get the best possible coffees"
+    "**As a** geeky coffee lover"
+    "**I can** configure it to match my needs"
 
-  Scenario: Display settings
+  @priority-medium
+  Scenario: Display settings (uid:8252ff15-f313-4f07-8d1a-2c6e3cd1091b)
     Given the coffee machine is started
     When I switch to settings mode
     Then displayed message is:
@@ -13,7 +15,8 @@ Feature: Can be configured
        - 2: grinder
       """
 
-  Scenario: Default settings
+  @priority-high
+  Scenario: Default settings (uid:76eef408-bd2f-47c7-a78b-f14a5e7ce07f)
     Given the coffee machine is started
     When I switch to settings mode
     Then settings should be:
