@@ -1,0 +1,36 @@
+name: Java CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch as needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11  # Adjust the Java version as needed
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6  # Adjust the Ruby version as needed
+
+      - name: Install hiptest-publisher
+        run: gem install hiptest-publisher
+
+      - name: Publish Hiptest
+        run: hiptest-publisher -c cucumber-java.conf --token ${{ secrets.SECRET_TOKEN }} --only features,step_definitions --test-run-id 835531
+
+      - name: Build with Maven
+        run: mvn test
+
+      - name: Publish Hiptest Results
+        run: hiptest-publisher -c cucumber-java.conf --token ${{ secrets.SECRET_TOKEN }} --push target/cuke-results.json --test-run-id 835531
