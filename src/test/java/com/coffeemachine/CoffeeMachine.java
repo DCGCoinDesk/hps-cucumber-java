@@ -2,6 +2,9 @@ package com.coffeemachine;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
