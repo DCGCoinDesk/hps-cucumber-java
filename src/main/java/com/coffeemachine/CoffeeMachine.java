@@ -3,6 +3,14 @@ package com.coffeemachine;
 import java.util.HashMap;
 import java.util.Map;
 
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "src/test/resources", // Path to your feature files
+    glue = "com.coffeemachine",      // Package where your step definitions are located
+    plugin = {"json:target/cuke-results.json"},
+    strict = true
+)
+
 public class CoffeeMachine {
 
     private boolean started = false;
@@ -41,8 +49,8 @@ public class CoffeeMachine {
         settingsDisplayed = false;
     }
 
-    public Map<String,String> getSettings() {
-        Map<String,String> settings = new HashMap<String, String>();
+    public Map<String, String> getSettings() {
+        Map<String, String> settings = new HashMap<>();
         settings.put("water hardness", waterHardness);
         settings.put("grinder", grinder);
 
@@ -50,7 +58,7 @@ public class CoffeeMachine {
     }
 
     public String message() {
-        if(!started) return "";
+        if (!started) return "";
 
         if (settingsDisplayed) return i18n("settings");
         if (tankContent <= 10) return i18n("tank");
@@ -65,10 +73,10 @@ public class CoffeeMachine {
             coffeeServed = false;
         } else {
             coffeeServed = true;
-            tankContent -= 1;
-            beansContent -= 1;
-            groundsContent += 1;
-            countdownToDescale -= 1;
+            tankContent--;
+            beansContent--;
+            groundsContent++;
+            countdownToDescale--;
         }
     }
 
@@ -93,14 +101,14 @@ public class CoffeeMachine {
     }
 
     private String i18n(String key) {
-        Map<String,String> map = new HashMap<String, String>();
-        if (lang.equals("fr")) {
-            map.put("tank", "Remplir reservoir");
+        Map<String, String> map = new HashMap<>();
+        if (lang != null && lang.equals("fr")) {
+            map.put("tank", "Remplir réservoir");
             map.put("beans", "Ajouter grains");
             map.put("grounds", "Vider marc");
-            map.put("ready", "Pret");
-            map.put("settings", "Configurer:\n - 1: durete de l'eau\n - 2: mouture");
-            map.put("descale", "Detartage requis");
+            map.put("ready", "Prêt");
+            map.put("settings", "Configurer:\n - 1: dureté de l'eau\n - 2: mouture");
+            map.put("descale", "Détartrage requis");
         } else {
             map.put("tank", "Fill tank");
             map.put("beans", "Fill beans");
@@ -109,6 +117,6 @@ public class CoffeeMachine {
             map.put("settings", "Settings:\n - 1: water hardness\n - 2: grinder");
             map.put("descale", "Descaling is needed");
         }
-        return map.get(key);
+        return map.getOrDefault(key, "");
     }
 }
