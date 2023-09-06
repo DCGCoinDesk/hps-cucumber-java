@@ -22,7 +22,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6  # Adjust the Ruby version as needed
+          ruby-version: 2.7  # Adjust the Ruby version as needed
 
       - name: Install hiptest-publisher
         run: gem install hiptest-publisher
