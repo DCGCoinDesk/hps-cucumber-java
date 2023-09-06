@@ -47,5 +47,11 @@
             <version>7.1.0</version> <!-- Updated Cucumber version -->
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-api</artifactId> <!-- Add this dependency -->
+            <version>7.1.0</version> <!-- Updated Cucumber version -->
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
